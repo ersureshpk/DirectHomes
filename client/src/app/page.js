@@ -1,10 +1,12 @@
 'use client';
+
 import Image from 'next/image';
 import logoImage from './Image/logo.png';
 import ctaImage from './Image/tracking.jpg'
 import { useRouter } from 'next/navigation';
 import Avatar from '../Avatar';
 import './styles/styles.css';
+import './globals.css';
 // 
 
 
@@ -21,7 +23,7 @@ const Home = () => {
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container">
           <a className="navbar-brand" href="/">
-            <Image src={logoImage} alt="Logo" width={160} height={85} />
+            <Image src={logoImage} alt="Logo" width="160" height="85" />
           </a>
           <button
             className="navbar-toggler"
@@ -63,8 +65,8 @@ const Home = () => {
             </div>
             <div className="track-form col-xl-6 col-md-6 col-12">
               <div className="heading2 mt-5">
-                <i className="fa fa-ship" /> <span>WITH SAFALTA</span>{" "}
-                <h3>SHIPMENT VISIBILITY</h3>{" "}
+                <i className="fa fa-ship" /> <span>DTH</span>{" "}
+                <h3>Direct To Home</h3>{" "}
               </div>
               <form>
                 <label>
@@ -78,7 +80,7 @@ const Home = () => {
                   />
                 </label>
               </form>
-              <button type="button" class="btn order_track_btn mt-4" >PROCEED NOW</button>
+              <button type="button" class="btn order_track_btn mt-4" >Track Your Number</button>
             </div>
           </div>
         </div>

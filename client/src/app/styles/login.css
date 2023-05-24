@@ -9,7 +9,7 @@
   .form {
     position: relative;
     z-index: 1;
-    background: #FFFFFF;
+    background: #c2ec97;
     border-radius: 10px;
     max-width: 360px;
     margin: 0 auto 100px;
@@ -39,12 +39,12 @@
     font-family: 'Comfortaa', cursive;
     text-transform: uppercase;
     outline: 0;
-    background: #58585B;
+    background: #3f3fee;
     width: 100%;
     border: 0;
     border-radius: 5px;
     padding: 15px;
-    color: #FFFFFF;
+    color: #eb6a0d;
     font-size: 14px;
     -webkit-transition: all 0.3 ease;
     transition: all 0.3 ease;
@@ -52,7 +52,7 @@
   }
   
   .form button:active ,.form button:hover{
-    background: #FA9D1B;
+    background: #f3f2f0;
   }
   
   .form span {
@@ -71,4 +71,5 @@
   .Login-register-text {
     font-size: 12px;
     margin-top: 16px;
+  
   }

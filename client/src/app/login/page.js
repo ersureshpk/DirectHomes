@@ -9,9 +9,10 @@ import '../styles/login.css';
 
 // Creating schema
 const schema = Yup.object().shape({
-    email: Yup.string()
-        .required("Email is a required field")
-        .email("Invalid email format"),
+    userName: Yup.string()
+        .required("userName is a required field")
+        .min(2, 'Too Short!')
+        .max(50, 'Too Long!'),
     password: Yup.string()
         .required("Password is a required field")
         .min(8, "Password must be at least 8 characters"),
@@ -23,7 +24,7 @@ function Login() {
           
             <Formik
                 validationSchema={schema}
-                initialValues={{ email: "", password: "" }}
+                initialValues={{ userName: "", password: "" }}
                 onSubmit={(values) => {
                     // Alert the input values of the form that we filled
                     alert(JSON.stringify(values));
@@ -45,18 +46,18 @@ function Login() {
                                 <span>Login</span>
                                 
                                 <input
-                                    type="email"
-                                    name="email"
+                                    type="userName"
+                                    name="userName"
                                     onChange={handleChange}
                                     onBlur={handleBlur}
-                                    value={values.email}
-                                    placeholder="Enter email id / username"
+                                    value={values.userName}
+                                    placeholder="Enter username"
                                     className="form-control inp_text"
-                                    id="email"
+                                    id="userName"
                                 />
                                
                                 <p className="error">
-                                    {errors.email && touched.email && errors.email}
+                                    {errors.userName && touched.userName && errors.userName}
                                 </p>
                                
                                 <input

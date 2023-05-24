@@ -9,21 +9,29 @@ import '../styles/reg.css';
 
 // Creating schema
 const schema = Yup.object().shape({
-  firstName: Yup.string()
+  fullName: Yup.string()
     .min(2, 'Too Short!')
     .max(50, 'Too Long!')
-    .required('Required'),
-  lastName: Yup.string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Required'),
+    .required('Required name'),
+  phoneNumber: Yup.string()
+    .min(9, 'Too Short!')
+    .max(10, 'Too Long!')
+    .required('Required phone number'),
   email: Yup.string()
     .required("Email is a required field")
     .email("Invalid email format"),
+  userName: Yup.string()
+    .min(2, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('Required username'),
   password: Yup.string()
-    .required("Password is a required field")
+    .required("required password")
     .min(8, "Password must be at least 8 characters"),
 });
+
+const handleRegister = async(values) =>{
+      const res = await fetch('http://localhost/8080/password')
+}
 
 function Register() {
   return (
@@ -32,14 +40,15 @@ function Register() {
       <Formik
         validationSchema={schema}
         initialValues={{
-          firstName: '',
-          lastName: '',
-           email: "",
-            password: ""
+          fullName: '',
+          phoneNumber: '',
+          email: "",
+          userName: "",
+          password: ""
         }}
         onSubmit={(values) => {
           // Alert the input values of the form that we filled
-          alert(JSON.stringify(values));
+          handleRegister(values);
         }}
       >
         {({
@@ -56,25 +65,32 @@ function Register() {
               <form noValidate onSubmit={handleSubmit}>
                 <Image src={logoImage} alt="Logo" width={160} height={85} />
                 <span>Register</span>
-                <input name="firstName"  placeholder="Enter First Name"
-                  className="form-control"/>
+                <input name="fullName"
+                  placeholder="Enter Full Name"
+                  className="form-control"
+                  onChange={handleChange}
+                  value={values.fullName} 
+                />
                 <p className="error">
-                  {errors.firstName && touched.firstName && errors.firstName}
+                  {errors.fullName && touched.fullName && errors.fullName}
                 </p>
                
-                <input name="lastName"   
-                placeholder="Enter Last  Name"
-                  className="form-control"/>
+                <input name="phoneNumber"   
+                placeholder="Enter your Phone Number"
+                  className="form-control"
+                  onChange={handleChange}
+                  value={values.phoneNumber} />
                 <p className="error">
-                  {errors.lastName && touched.lastName && errors.lastName}
+                  {errors.phoneNumber && touched.phoneNumber && errors.phoneNumber}
                 </p>
+
                 <input
                   type="email"
                   name="email"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.email}
-                  placeholder="Enter email id / username"
+                  placeholder="Enter email id"
                   className="form-control inp_text"
                   id="email"
                 />
@@ -83,6 +99,19 @@ function Register() {
                   {errors.email && touched.email && errors.email}
                 </p>
 
+                <input
+                  type="userName"
+                  name="userName"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.userName}
+                  placeholder="Enter userName"
+                  className="form-control"
+                />
+
+                <p className="error">
+                  {errors.userName && touched.userName && errors.userName}
+                </p>
                 <input
                   type="password"
                   name="password"
