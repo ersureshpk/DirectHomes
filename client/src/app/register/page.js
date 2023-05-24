@@ -7,6 +7,29 @@ import Link from 'next/link';
 import '../styles/reg.css';
 
 
+// function checkValidity(values){
+//   if( Number(values)?.toString() == NaN?.toString() && values?.includes('@')  ) {
+//     if( values?.includes('.')){
+//       return ['email', true]
+//     }else{
+//       return ['email', false]
+//     }
+//   }else if(Number(values).toString() != NaN.toString()){
+//     if(values?.length ==10){
+//      return ['phoneNumber' , true]
+//     }else{
+//      return ['phoneNumber' , false]
+//     }
+//   }
+//   else{
+//      if(values?.length <3 || !values){
+//        return ['username', false]
+//      }else{
+//          return ['username', true]
+//      }
+//   }
+// }
+
 // Creating schema
 const schema = Yup.object().shape({
   fullName: Yup.string()
@@ -29,8 +52,16 @@ const schema = Yup.object().shape({
     .min(8, "Password must be at least 8 characters"),
 });
 
-const handleRegister = async(values) =>{
-      const res = await fetch('http://localhost/8080/password')
+const handleRegister = async(values) => {
+  // const userField = checkValidity(values.userIdentityField)
+  // values[userField[0]] = values.userIdentityField
+  
+  const requestOptions ={
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(values)
+  }
+ const res = await fetch('http://localhost:8080/register', requestOptions)
 }
 
 function Register() {
@@ -140,6 +171,9 @@ function Register() {
 }
 
 export default Register;
+
+
+
 
 
 
