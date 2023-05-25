@@ -1,11 +1,12 @@
 'use client';
+import {useState} from 'react';
 import Image from 'next/image';
 import logoImage from '../Image/logo.png';
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Link from 'next/link';
+import Snackbar from '@mui/material/Snackbar';
 import '../styles/reg.css';
-
 
 // function checkValidity(values){
 //   if( Number(values)?.toString() == NaN?.toString() && values?.includes('@')  ) {
@@ -52,7 +53,10 @@ const schema = Yup.object().shape({
     .min(8, "Password must be at least 8 characters"),
 });
 
-const handleRegister = async(values) => {
+function Register() {
+  const [open, setOpen] = useState(false)
+  const handleRegister = async(values,resetForm) => {
+    try{
   // const userField = checkValidity(values.userIdentityField)
   // values[userField[0]] = values.userIdentityField
   
@@ -62,9 +66,18 @@ const handleRegister = async(values) => {
     body: JSON.stringify(values)
   }
  const res = await fetch('http://localhost:8080/register', requestOptions)
+ const data = await res.json()
+ if(res.status == 200 && data){
+  setOpen(true)
+   alert("user registration success")
+  // resetForm()
+ }
+}catch(err){
+  setOpen(true)
+    alert("registration failed")
+}
 }
 
-function Register() {
   return (
     <>
 
