@@ -50,11 +50,22 @@ const schema = Yup.object().shape({
     .required('Required username'),
   password: Yup.string()
     .required("required password")
-    .min(8, "Password must be at least 8 characters"),
+    .min(8, "Password must be at least 8 characters")
+    .test('password dont allow multiple space', () => 'password dont allow multiple space', (value) => !value.includes(' ')),
 });
 
 function Register() {
   const [open, setOpen] = useState(false)
+  const [SubmitMessage, setSubmitMessage] = useState('')
+
+  const handleClose = (_, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
   const handleRegister = async(values,resetForm) => {
     try{
   // const userField = checkValidity(values.userIdentityField)
@@ -69,12 +80,12 @@ function Register() {
  const data = await res.json()
  if(res.status == 200 && data){
   setOpen(true)
-   alert("user registration success")
-  // resetForm()
+  setSubmitMessage("user registration success")
+  resetForm()
  }
 }catch(err){
   setOpen(true)
-    alert("registration failed")
+  setSubmitMessage("user registration failed!")
 }
 }
 
@@ -82,6 +93,7 @@ function Register() {
     <>
 
       <Formik
+      
         validationSchema={schema}
         initialValues={{
           fullName: '',
@@ -90,9 +102,9 @@ function Register() {
           userName: "",
           password: ""
         }}
-        onSubmit={(values) => {
+        onSubmit={(values, {resetForm}) => {
           // Alert the input values of the form that we filled
-          handleRegister(values);
+          handleRegister(values, resetForm);
         }}
       >
         {({
@@ -179,6 +191,15 @@ function Register() {
           </div>
         )}
       </Formik>
+      <Snackbar
+        open={open}
+        message={SubmitMessage}
+        onClose={handleClose}
+        
+        autoHideDuration={5000}
+      
+        // action={action}
+      />
     </>
   );
 }
